@@ -201,11 +201,14 @@ const Cuatro = () => {
         >
           <div className="bg-black/40 backdrop-blur-sm rounded-2xl p-8 border border-purple-300/20 shadow-xl shadow-purple-500/10">
             <p className="text-lg md:text-xl text-purple-50 leading-relaxed mb-6 font-light">
-              Tengo una inclinación natural hacia lo que aún no existe. No estoy hecho para repetir lo establecido, 
-              sino para explorar lo nuevo, redibujar caminos y crear otros que todavía no existen.
+Dentro de mí habita una mirada que se adelanta al tiempo, como si mis pensamientos caminaran siempre 
+    algunos pasos por delante del presente. Ese lado futurista me impulsa a imaginar escenarios donde la 
+    tecnología, la creatividad y lo desconocido se transforman en posibilidades tangibles.  
             </p>
             <p className="text-lg md:text-xl text-purple-100 leading-relaxed italic">
-              Vivo en movimiento mental, en la anticipación, en el deseo de empujar los límites de lo que se da por hecho.
+             Me reconozco en el símbolo del infinito y en las formas geométricas que parecen surgir de otros mundos, 
+    porque ambas me recuerdan que no estoy hecho para repetir lo establecido, sino para soñar con lo que aún 
+    no existe y abrirle un espacio real en mi camino.
             </p>
           </div>
         </div>
