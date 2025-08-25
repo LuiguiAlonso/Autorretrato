@@ -198,8 +198,7 @@ const Dos = () => {
         >
           <div className="bg-black/40 backdrop-blur-sm rounded-2xl p-8 border border-emerald-300/20 shadow-xl shadow-emerald-500/10">
             <p className="text-lg md:text-xl text-emerald-50 leading-relaxed mb-6 font-light">
-              Desde niño me decían que vivía en mi propio mundo. Mientras otros jugaban, 
-              yo prefería perderme en mis pensamientos, inventando escenarios y creando historias.
+De niño jugaba como cualquiera, pero cuando algo dejaba de interesarme, me sumergía en mi propio mundo. Allí inventaba escenarios y tejía historias, como si la imaginación fuera un refugio secreto al que solo yo tenía acceso.
             </p>
           </div>
         </div>
