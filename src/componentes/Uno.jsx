@@ -159,7 +159,7 @@ const Uno = () => {
               Esta imagen refleja que aún no termino de conocerme del todo. El camino dividido simboliza las distintas posibilidades de lo que puedo llegar a ser, las rutas que exploro para descubrir con cuál me identifico más. La luz en el pecho representa la esencia que siempre me acompaña, incluso cuando no tengo todas las respuestas.
             </p>
             <p className="text-lg md:text-xl text-blue-100 leading-relaxed italic">
-              El cielo estrellado y las constelaciones me recuerdan que la búsqueda de identidad no es un error ni un vacío, sino un proceso natural, guiado por señales internas y externas. No soy un rompecabezas roto, sino un viajero que sigue explorando su propio mapa.
+              El cielo estrellado y las constelaciones me recuerdan que la búsqueda de identidad no es un error ni un vacío, sino un proceso natural, guiado por señales internas y externas, un viajero que sigue explorando su propio mapa.
             </p>
           </div>
         </div>
