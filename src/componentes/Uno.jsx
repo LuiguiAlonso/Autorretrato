@@ -51,31 +51,34 @@ const Uno = () => {
       {/* Contenedor principal */}
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-6 py-12">
         
-        {/* Espejo central con fragmentos flotantes */}
+        {/* Imagen central con fragmentos flotantes */}
         <div className="relative w-full max-w-4xl h-96 mb-16">
           
-          {/* Espejo central roto */}
+          {/* Imagen central */}
           <div 
             className={`absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 transition-all duration-1000 ${
               isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-75'
             }`}
           >
-            {/* Marco del espejo principal */}
+            {/* Contenedor de la imagen principal */}
             <div className="relative">
-              <div className="w-48 h-64 border-4 border-blue-300/50 rounded-lg bg-gradient-to-br from-slate-800 to-blue-900 shadow-2xl shadow-blue-500/30 transform rotate-12">
-                {/* Grietas en el espejo */}
-                <svg className="absolute inset-0 w-full h-full" viewBox="0 0 200 250">
+              <div className="w-64 h-64 border-4 border-blue-300/50 rounded-lg overflow-hidden shadow-2xl shadow-blue-500/30 transform rotate-12">
+                <img 
+                  src="/uno.png" 
+                  alt="Autorretrato fragmentado"
+                  className="w-full h-full object-cover"
+                />
+                {/* Overlay con efecto de cristal roto */}
+                <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 256 256">
                   <path 
-                    d="M50 50 L150 200 M100 30 L80 220 M30 120 L170 180" 
-                    stroke="rgba(147, 197, 253, 0.4)" 
-                    strokeWidth="2" 
+                    d="M64 64 L192 224 M128 32 L96 232 M32 128 L224 192" 
+                    stroke="rgba(147, 197, 253, 0.6)" 
+                    strokeWidth="3" 
                     fill="none"
                   />
                 </svg>
-                {/* Reflejo distorsionado */}
-                <div className="absolute inset-2 bg-gradient-to-br from-blue-400 via-indigo-500 to-cyan-400 opacity-70 rounded"></div>
-                {/* Brillo del espejo */}
-                <div className="absolute inset-2 bg-gradient-to-tr from-transparent via-white/20 to-transparent rounded"></div>
+                {/* Brillo del cristal */}
+                <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/15 to-transparent"></div>
               </div>
             </div>
           </div>
@@ -119,19 +122,26 @@ const Uno = () => {
                 }}
               >
                 <div 
-                  className="border-2 border-blue-300/60 bg-gradient-to-br from-blue-200 via-indigo-300 to-cyan-200 shadow-xl shadow-blue-500/30"
+                  className="border-2 border-blue-300/60 bg-gradient-to-br from-blue-200 via-indigo-300 to-cyan-200 shadow-xl shadow-blue-500/30 overflow-hidden"
                   style={{
                     width: `${fragment.size}px`,
-                    height: `${fragment.size * 1.2}px`,
+                    height: `${fragment.size}px`,
                     opacity: fragment.opacity,
                     clipPath: 'polygon(20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%)',
                     animation: `float-${fragment.id} ${4 + Math.random() * 2}s ease-in-out infinite alternate`
                   }}
                 >
-                  {/* Reflejo en el fragmento */}
-                  <div className="w-full h-full bg-gradient-to-br from-white/30 to-blue-100/10"></div>
-                  {/* Brillo interior */}
-                  <div className="absolute inset-1 bg-gradient-to-tr from-transparent via-blue-100/20 to-white/40 rounded-sm"></div>
+                  {/* Fragmento de la imagen */}
+                  <img 
+                    src="/uno.png" 
+                    alt=""
+                    className="w-full h-full object-cover opacity-80"
+                    style={{
+                      transform: `scale(${Math.random() * 0.5 + 1.2}) translate(${Math.random() * 40 - 20}%, ${Math.random() * 40 - 20}%)`
+                    }}
+                  />
+                  {/* Overlay con brillo */}
+                  <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-blue-100/20 to-white/40"></div>
                 </div>
               </div>
             );
@@ -146,11 +156,17 @@ const Uno = () => {
         >
           <div className="bg-black/40 backdrop-blur-sm rounded-2xl p-8 border border-blue-300/20 shadow-xl shadow-blue-500/10">
             <p className="text-lg md:text-xl text-blue-50 leading-relaxed mb-6 font-light">
-              Siento que aún no me conozco del todo. A veces pruebo distintas versiones de mí mismo, 
-              como si buscara descubrir cuál refleja mejor quién soy.
+              Esta imagen refleja la búsqueda de mi identidad. El espejo roto simboliza las distintas versiones de mí que voy probando, 
+              cada fragmento una posibilidad de lo que soy o podría ser. No es un espejo destruido, sino multiplicado: muestra que no 
+              soy uno solo, sino un conjunto de matices.
             </p>
-            <p className="text-lg md:text-xl text-blue-100 leading-relaxed italic">
-              Me pregunto si esas variaciones son máscaras… o si todas son parte de la misma esencia.
+            <p className="text-lg md:text-xl text-blue-100 leading-relaxed mb-6 italic">
+              Los hilos de luz que conectan los pedazos representan la esencia que permanece a pesar de los cambios, la base que me 
+              mantiene coherente en medio de la exploración.
+            </p>
+            <p className="text-lg md:text-xl text-blue-50 leading-relaxed italic">
+              Esa tensión entre lo diverso y lo unido es el centro de mi autorretrato en esta etapa: me conozco y no me conozco, 
+              soy fragmento y a la vez totalidad.
             </p>
           </div>
         </div>
