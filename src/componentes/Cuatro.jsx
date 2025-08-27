@@ -150,10 +150,10 @@ const Cuatro = () => {
         >
           <div className="bg-black/40 backdrop-blur-sm rounded-2xl p-8 border border-purple-300/20 shadow-xl shadow-purple-500/10">
             <p className="text-lg md:text-xl text-purple-50 leading-relaxed mb-6 font-light">
-              Esta última escena une todas las partes de mi autorretrato. El puente de cristal es mi trayecto personal: frágil, incierto, pero también iluminado por la claridad que surge cuando me detengo a reflexionar. A un lado, los fragmentos de espejo recuerdan que sigo explorando mis múltiples rostros, probando formas de ser que me ayudan a entenderme mejor. Al otro, el portal representa la imaginación que me acompaña desde niño, ese refugio secreto que siempre me ofrece alternativas y nuevas posibilidades.
+              Esta última escena une todas las partes de mi autorretrato. El puente de cristal es mi trayecto personal: incierto, pero fuerte y lleno de claridad en la dirección. A un lado, me acompaña la búsqueda de entenderme mejor, reflexionando sobre quién soy y hacia dónde quiero ir. Al otro, el portal simboliza la imaginación que me acompaña desde niño, ese refugio secreto que siempre me ofrece un camino alterno.
             </p>
             <p className="text-lg md:text-xl text-purple-100 leading-relaxed italic">
-              Al fondo, la ciudad futurista refleja mi inclinación por lo que aún no existe, la fascinación que me impulsa a seguir avanzando. Mi figura pequeña frente a la inmensidad simboliza humildad, pero la luz que llevo en el pecho señala que no camino perdido, sino con un sentido interno que me guía. Esta es la suma de todo: soy búsqueda, imaginación y proyección hacia adelante, un caminante del futuro que sigue descubriéndose en el presente.
+              Al fondo, la ciudad futurista representa la fascinación que me impulsa a caminar, el deseo de alcanzar lo que aún no existe. Mi figura pequeña frente a la inmensidad simboliza humildad, pero el hecho de avanzar muestra que no me detengo. Esta es la suma de todo: soy búsqueda, imaginación y proyección hacia adelante, un caminante del futuro que aún se descubre en el presente.
             </p>
           </div>
         </div>
