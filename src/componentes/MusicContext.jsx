@@ -13,35 +13,39 @@ export const useMusic = () => {
 export const MusicProvider = ({ children }) => {
   const audioRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [volume, setVolume] = useState(0.2); // Volumen inicial bajo para ambiente
+  const [volume, setVolume] = useState(0.2);
   const [isLoaded, setIsLoaded] = useState(false);
   const [hasUserInteracted, setHasUserInteracted] = useState(false);
 
+  // useEffect para inicializar el audio (solo una vez)
   useEffect(() => {
     // Crear el elemento de audio
-    audioRef.current = new Audio('/music/background.mp3'); // Cambia por el nombre de tu archivo
+    audioRef.current = new Audio('/music/background.mp3');
     audioRef.current.loop = true;
     audioRef.current.volume = volume;
     audioRef.current.preload = 'auto';
 
     // Eventos del audio
-    audioRef.current.addEventListener('canplaythrough', () => {
+    const handleCanPlayThrough = () => {
       setIsLoaded(true);
-      // Intentar reproducir inmediatamente cuando esté listo
       tryAutoPlay();
-    });
+    };
 
-    audioRef.current.addEventListener('play', () => {
+    const handlePlay = () => {
       setIsPlaying(true);
-    });
+    };
 
-    audioRef.current.addEventListener('pause', () => {
+    const handlePause = () => {
       setIsPlaying(false);
-    });
+    };
+
+    audioRef.current.addEventListener('canplaythrough', handleCanPlayThrough);
+    audioRef.current.addEventListener('play', handlePlay);
+    audioRef.current.addEventListener('pause', handlePause);
 
     // Función para intentar autoplay
     const tryAutoPlay = async () => {
-      if (audioRef.current && isLoaded) {
+      if (audioRef.current && audioRef.current.readyState >= 4) {
         try {
           await audioRef.current.play();
           setHasUserInteracted(true);
@@ -52,7 +56,7 @@ export const MusicProvider = ({ children }) => {
       }
     };
 
-    // Detector de primera interacción del usuario (más agresivo)
+    // Detector de primera interacción del usuario
     const handleFirstInteraction = async () => {
       if (!hasUserInteracted && audioRef.current) {
         setHasUserInteracted(true);
@@ -65,8 +69,8 @@ export const MusicProvider = ({ children }) => {
       }
     };
 
-    // Intentar autoplay inmediatamente
-    setTimeout(tryAutoPlay, 500);
+    // Intentar autoplay después de un breve delay
+    const autoplayTimer = setTimeout(tryAutoPlay, 1000);
 
     // Agregar listeners para múltiples tipos de interacción
     const events = ['click', 'keydown', 'touchstart', 'mousedown', 'scroll'];
@@ -76,16 +80,28 @@ export const MusicProvider = ({ children }) => {
 
     // Cleanup
     return () => {
+      clearTimeout(autoplayTimer);
+      
       events.forEach(event => {
         document.removeEventListener(event, handleFirstInteraction);
       });
       
       if (audioRef.current) {
+        audioRef.current.removeEventListener('canplaythrough', handleCanPlayThrough);
+        audioRef.current.removeEventListener('play', handlePlay);
+        audioRef.current.removeEventListener('pause', handlePause);
         audioRef.current.pause();
         audioRef.current.src = '';
         audioRef.current = null;
       }
     };
+  }, []); // Sin dependencias para que solo se ejecute una vez
+
+  // useEffect separado para manejar cambios de volumen
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.volume = volume;
+    }
   }, [volume]);
 
   const play = async () => {
@@ -93,6 +109,7 @@ export const MusicProvider = ({ children }) => {
       try {
         await audioRef.current.play();
         setIsPlaying(true);
+        setHasUserInteracted(true);
       } catch (error) {
         console.error('Error al reproducir música:', error);
       }
@@ -116,9 +133,12 @@ export const MusicProvider = ({ children }) => {
 
   const changeVolume = (newVolume) => {
     setVolume(newVolume);
-    if (audioRef.current) {
-      audioRef.current.volume = newVolume;
-    }
+    // El volumen se actualiza en el useEffect separado
+  };
+
+  // Función para obtener el tiempo actual (útil para debugging)
+  const getCurrentTime = () => {
+    return audioRef.current ? audioRef.current.currentTime : 0;
   };
 
   return (
@@ -130,7 +150,8 @@ export const MusicProvider = ({ children }) => {
       play,
       pause,
       toggle,
-      changeVolume
+      changeVolume,
+      getCurrentTime // Función adicional para debugging
     }}>
       {children}
     </MusicContext.Provider>

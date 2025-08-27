@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Uno = () => {
+  const navigate = useNavigate();
   const [isVisible, setIsVisible] = useState(false);
   const [fragmentsLoaded, setFragmentsLoaded] = useState(false);
   const [hoveredFragment, setHoveredFragment] = useState(null);
@@ -21,6 +23,10 @@ const Uno = () => {
     rotation: Math.random() * 360,
     opacity: Math.random() * 0.4 + 0.6
   }));
+
+  const handleNavigateToNext = () => {
+    navigate('/dos');
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-blue-900 to-slate-900 overflow-hidden relative">
@@ -171,7 +177,7 @@ const Uno = () => {
           }`}
         >
           <button 
-            onClick={() => window.location.href = '/dos'}
+            onClick={handleNavigateToNext}
             className="group bg-blue-600/20 hover:bg-blue-500/30 border border-blue-400/30 hover:border-blue-300/50 backdrop-blur-sm rounded-full px-8 py-4 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-blue-500/20"
           >
             <div className="flex items-center space-x-3 text-blue-200 group-hover:text-blue-100">

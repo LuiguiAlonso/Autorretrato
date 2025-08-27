@@ -1,11 +1,21 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Tres = () => {
+  const navigate = useNavigate();
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     setIsVisible(true);
   }, []);
+
+  const handleNavigateToAnterior = () => {
+    navigate('/dos');
+  };
+
+  const handleNavigateToSiguiente = () => {
+    navigate('/cuatro');
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-900 via-red-800 to-purple-900 overflow-hidden relative">
@@ -81,7 +91,7 @@ const Tres = () => {
           }`}
         >
           <button 
-            onClick={() => window.location.href = '/dos'}
+            onClick={handleNavigateToAnterior}
             className="group bg-orange-600/20 hover:bg-orange-500/30 border border-orange-400/30 hover:border-orange-300/50 backdrop-blur-sm rounded-full px-6 py-3 transition-all duration-300 hover:scale-105"
           >
             <div className="flex items-center space-x-2 text-orange-200 group-hover:text-orange-100">
@@ -93,7 +103,7 @@ const Tres = () => {
           </button>
           
           <button 
-            onClick={() => window.location.href = '/cuatro'}
+            onClick={handleNavigateToSiguiente}
             className="group bg-orange-600/20 hover:bg-orange-500/30 border border-orange-400/30 hover:border-orange-300/50 backdrop-blur-sm rounded-full px-6 py-3 transition-all duration-300 hover:scale-105"
           >
             <div className="flex items-center space-x-2 text-orange-200 group-hover:text-orange-100">

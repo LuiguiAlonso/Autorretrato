@@ -1,11 +1,21 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Dos = () => {
+  const navigate = useNavigate();
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     setIsVisible(true);
   }, []);
+
+  const handleNavigateToAnterior = () => {
+    navigate('/');
+  };
+
+  const handleNavigateToSiguiente = () => {
+    navigate('/tres');
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-900 via-teal-800 to-slate-900 overflow-hidden relative">
@@ -74,7 +84,7 @@ const Dos = () => {
           }`}
         >
           <button 
-            onClick={() => window.location.href = '/'}
+            onClick={handleNavigateToAnterior}
             className="group bg-emerald-600/20 hover:bg-emerald-500/30 border border-emerald-400/30 hover:border-emerald-300/50 backdrop-blur-sm rounded-full px-6 py-3 transition-all duration-300 hover:scale-105"
           >
             <div className="flex items-center space-x-2 text-emerald-200 group-hover:text-emerald-100">
@@ -86,7 +96,7 @@ const Dos = () => {
           </button>
           
           <button 
-            onClick={() => window.location.href = '/tres'}
+            onClick={handleNavigateToSiguiente}
             className="group bg-emerald-600/20 hover:bg-emerald-500/30 border border-emerald-400/30 hover:border-emerald-300/50 backdrop-blur-sm rounded-full px-6 py-3 transition-all duration-300 hover:scale-105"
           >
             <div className="flex items-center space-x-2 text-emerald-200 group-hover:text-emerald-100">
