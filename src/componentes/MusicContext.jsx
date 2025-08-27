@@ -72,10 +72,10 @@ export const MusicProvider = ({ children }) => {
     // Intentar autoplay después de un breve delay
     const autoplayTimer = setTimeout(tryAutoPlay, 1000);
 
-    // Agregar listeners para múltiples tipos de interacción
-    const events = ['click', 'keydown', 'touchstart', 'mousedown', 'scroll'];
+    // Agregar listeners para múltiples tipos de interacción (incluyendo mousemove para mayor sensibilidad)
+    const events = ['click', 'keydown', 'touchstart', 'mousedown', 'scroll', 'mousemove', 'mouseenter', 'touchmove'];
     events.forEach(event => {
-      document.addEventListener(event, handleFirstInteraction, { once: true });
+      document.addEventListener(event, handleFirstInteraction, { once: true, passive: true });
     });
 
     // Cleanup

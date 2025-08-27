@@ -13,22 +13,12 @@ const MusicControls = () => {
       {/* Botón principal */}
       <button
         onClick={() => setShowControls(!showControls)}
-        className={`w-14 h-14 backdrop-blur-sm rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-lg border ${
-          isPlaying 
-            ? 'bg-gradient-to-br from-green-600/70 to-emerald-600/70 hover:from-green-500/80 hover:to-emerald-500/80 shadow-green-500/20 border-green-400/30' 
-            : 'bg-gradient-to-br from-purple-600/90 to-indigo-600/90 hover:from-purple-500/95 hover:to-indigo-500/95 shadow-purple-500/25 border-purple-400/30'
-        }`}
+        className="w-14 h-14 bg-gradient-to-br from-purple-600/90 to-indigo-600/90 hover:from-purple-500/95 hover:to-indigo-500/95 backdrop-blur-sm rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-lg shadow-purple-500/25 border border-purple-400/30"
         title="Controles de música"
       >
-        {isPlaying ? (
-          <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/>
-          </svg>
-        ) : (
-          <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M12 3l-1.5 5.5H5l4.5 3.5-1.5 5.5L12 14l4 3.5-1.5-5.5L19 8.5h-5.5L12 3z"/>
-          </svg>
-        )}
+        <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 3l-1.5 5.5H5l4.5 3.5-1.5 5.5L12 14l4 3.5-1.5-5.5L19 8.5h-5.5L12 3z"/>
+        </svg>
       </button>
 
       {/* Panel de controles expandido */}
@@ -92,19 +82,10 @@ const MusicControls = () => {
           </div>
 
           {/* Indicador de estado */}
-          {!hasUserInteracted && !isPlaying && (
-            <div className="mt-4 p-2 bg-blue-900/40 rounded-lg border border-blue-600/30">
-              <p className="text-xs text-blue-200 text-center">
-                La música se iniciará automáticamente
-              </p>
-            </div>
-          )}
-          
-          {isPlaying && (
-            <div className="mt-4 p-2 bg-green-900/40 rounded-lg border border-green-600/30">
-              <p className="text-xs text-green-200 text-center flex items-center justify-center space-x-2">
-                <div className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></div>
-                <span>Reproduciendo</span>
+          {!hasUserInteracted && (
+            <div className="mt-4 p-2 bg-yellow-900/40 rounded-lg border border-yellow-600/30">
+              <p className="text-xs text-yellow-200 text-center">
+                Haz clic en cualquier lugar para activar la música
               </p>
             </div>
           )}

@@ -6,6 +6,8 @@ const Dos = () => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
+    // Scroll hacia arriba al montar el componente
+    window.scrollTo(0, 0);
     setIsVisible(true);
   }, []);
 

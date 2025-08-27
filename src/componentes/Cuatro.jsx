@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Cuatro = () => {
+  const navigate = useNavigate();
   const [isVisible, setIsVisible] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
   const [floatingElements, setFloatingElements] = useState([]);
 
   useEffect(() => {
+    // Scroll hacia arriba al montar el componente
+    window.scrollTo(0, 0);
     setIsVisible(true);
     setTimeout(() => setImageLoaded(true), 1000);
     
@@ -22,6 +26,14 @@ const Cuatro = () => {
     }));
     setFloatingElements(elements);
   }, []);
+
+  const handleNavigateToAnterior = () => {
+    navigate('/tres');
+  };
+
+  const handleNavigateToInicio = () => {
+    navigate('/');
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-800 to-slate-900 overflow-hidden relative">
@@ -164,6 +176,7 @@ const Cuatro = () => {
             isVisible ? 'opacity-100' : 'opacity-0'
           }`}
         >
+
         </div>
       </div>
 
