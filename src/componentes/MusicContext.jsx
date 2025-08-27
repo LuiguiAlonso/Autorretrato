@@ -69,11 +69,29 @@ export const MusicProvider = ({ children }) => {
       }
     };
 
+    // Detector específico para scroll en móviles
+    let scrollTimer;
+    const handleScroll = () => {
+      if (!hasUserInteracted) {
+        clearTimeout(scrollTimer);
+        scrollTimer = setTimeout(() => {
+          handleFirstInteraction();
+        }, 100);
+      }
+    };
+
+    // Agregar evento de scroll separado (no se remueve automáticamente)
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
     // Intentar autoplay después de un breve delay
     const autoplayTimer = setTimeout(tryAutoPlay, 1000);
 
-    // Agregar listeners para múltiples tipos de interacción (incluyendo mousemove para mayor sensibilidad)
-    const events = ['click', 'keydown', 'touchstart', 'mousedown', 'scroll', 'mousemove', 'mouseenter', 'touchmove'];
+    // Agregar listeners para múltiples tipos de interacción (incluyendo eventos táctiles más específicos)
+    const events = [
+      'click', 'keydown', 'touchstart', 'mousedown', 'scroll', 
+      'mousemove', 'mouseenter', 'touchmove', 'touchend', 
+      'wheel', 'gesturestart', 'orientationchange'
+    ];
     events.forEach(event => {
       document.addEventListener(event, handleFirstInteraction, { once: true, passive: true });
     });
@@ -81,6 +99,9 @@ export const MusicProvider = ({ children }) => {
     // Cleanup
     return () => {
       clearTimeout(autoplayTimer);
+      clearTimeout(scrollTimer);
+      
+      window.removeEventListener('scroll', handleScroll);
       
       events.forEach(event => {
         document.removeEventListener(event, handleFirstInteraction);
