@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 
 const Cuatro = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [hourglassLoaded, setHourglassLoaded] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
   const [floatingElements, setFloatingElements] = useState([]);
 
   useEffect(() => {
     setIsVisible(true);
-    setTimeout(() => setHourglassLoaded(true), 1000);
+    setTimeout(() => setImageLoaded(true), 1000);
     
     // Generar elementos flotantes (estrellas y caminos)
     const elements = Array.from({ length: 20 }, (_, i) => ({
@@ -52,145 +52,94 @@ const Cuatro = () => {
       {/* Contenedor principal */}
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-6 py-12">
         
-        {/* Reloj de arena suspendido con elementos flotantes */}
+        {/* Imagen principal con elementos flotantes */}
         <div 
           className={`relative w-full max-w-4xl h-[500px] mb-16 transition-all duration-1200 ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
-          <svg viewBox="0 0 400 500" className="w-full h-full mx-auto">
-            <defs>
-              <linearGradient id="hourglassGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stopColor="#c084fc" />
-                <stop offset="50%" stopColor="#8b5cf6" />
-                <stop offset="100%" stopColor="#7c3aed" />
-              </linearGradient>
-              
-              <linearGradient id="glassGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stopColor="rgba(255,255,255,0.3)" />
-                <stop offset="50%" stopColor="rgba(255,255,255,0.1)" />
-                <stop offset="100%" stopColor="rgba(255,255,255,0.3)" />
-              </linearGradient>
+          {/* Imagen del autorretrato */}
+          <div className={`w-full h-full flex items-center justify-center transition-all duration-1000 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}>
+            <img 
+              src="/cuatro.png" 
+              alt="Autorretrato Final - Puente de cristal hacia el futuro"
+              className="max-w-full max-h-full object-contain rounded-lg shadow-2xl shadow-purple-500/20 border border-purple-300/20"
+              onLoad={() => setImageLoaded(true)}
+              style={{ filter: 'drop-shadow(0 0 20px rgba(168, 85, 247, 0.3))' }}
+            />
+          </div>
 
-              <filter id="glow">
-                <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
-                <feMerge> 
-                  <feMergeNode in="coloredBlur"/>
-                  <feMergeNode in="SourceGraphic"/>
-                </feMerge>
-              </filter>
-            </defs>
-
-            {/* Marco del reloj de arena */}
-            <g className={`transition-all duration-1000 ${hourglassLoaded ? 'opacity-100' : 'opacity-0'}`}>
-              {/* Base superior */}
-              <rect x="150" y="50" width="100" height="20" rx="10" fill="url(#hourglassGradient)" stroke="#a855f7" strokeWidth="2"/>
-              
-              {/* Cristal superior */}
-              <path d="M160 70 L240 70 L220 180 L180 180 Z" fill="url(#glassGradient)" stroke="#c084fc" strokeWidth="2" opacity="0.8"/>
-              
-              {/* Cristal inferior */}
-              <path d="M180 320 L220 320 L240 430 L160 430 Z" fill="url(#glassGradient)" stroke="#c084fc" strokeWidth="2" opacity="0.8"/>
-              
-              {/* Cuello del reloj */}
-              <path d="M180 180 L200 250 L220 180" stroke="#c084fc" strokeWidth="2" fill="none"/>
-              <path d="M180 320 L200 250 L220 320" stroke="#c084fc" strokeWidth="2" fill="none"/>
-              
-              {/* Base inferior */}
-              <rect x="150" y="430" width="100" height="20" rx="10" fill="url(#hourglassGradient)" stroke="#a855f7" strokeWidth="2"/>
-              
-              {/* Soporte suspendido */}
-              <line x1="200" y1="20" x2="200" y2="50" stroke="#c084fc" strokeWidth="3" opacity="0.8"/>
-              <circle cx="200" cy="15" r="8" fill="#c084fc" opacity="0.8"/>
-            </g>
-
-            {/* Elementos flotantes dentro del reloj */}
+          {/* Elementos flotantes superpuestos */}
+          <div className="absolute inset-0 pointer-events-none">
             {floatingElements.map((element) => (
-              <g key={element.id} className={`transition-all duration-2000 ${hourglassLoaded ? 'opacity-100' : 'opacity-0'}`}>
+              <div
+                key={element.id}
+                className={`absolute transition-all duration-2000 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
+                style={{
+                  left: `${(element.x / 400) * 100}%`,
+                  top: `${(element.y / 500) * 100}%`,
+                  animationDelay: `${element.delay}s`
+                }}
+              >
                 {element.type === 'star' ? (
-                  <g>
-                    <polygon 
-                      points={`${element.x},${element.y - element.size} ${element.x + element.size * 0.3},${element.y - element.size * 0.3} ${element.x + element.size},${element.y - element.size * 0.3} ${element.x + element.size * 0.5},${element.y + element.size * 0.2} ${element.x + element.size * 0.8},${element.y + element.size} ${element.x},${element.y + element.size * 0.6} ${element.x - element.size * 0.8},${element.y + element.size} ${element.x - element.size * 0.5},${element.y + element.size * 0.2} ${element.x - element.size},${element.y - element.size * 0.3} ${element.x - element.size * 0.3},${element.y - element.size * 0.3}`}
-                      fill="#fbbf24" 
-                      opacity={element.opacity}
-                      filter="url(#glow)"
-                    >
-                      <animateTransform
-                        attributeName="transform"
-                        attributeType="XML"
-                        type="translate"
-                        values={`0,0; 0,-20; 0,0`}
-                        dur={`${element.speed + 2}s`}
-                        repeatCount="indefinite"
-                      />
-                    </polygon>
-                  </g>
+                  <div
+                    className="text-yellow-300"
+                    style={{
+                      fontSize: `${element.size}px`,
+                      opacity: element.opacity,
+                      filter: 'drop-shadow(0 0 4px rgba(251, 191, 36, 0.8))',
+                      animation: `float ${element.speed + 2}s ease-in-out infinite`
+                    }}
+                  >
+                    ✦
+                  </div>
                 ) : (
-                  <g>
-                    <path 
-                      d={`M${element.x - 15},${element.y} Q${element.x},${element.y - 10} ${element.x + 15},${element.y} Q${element.x + 25},${element.y + 15} ${element.x + 40},${element.y + 5}`}
-                      stroke="#06d6a0" 
-                      strokeWidth="2" 
-                      fill="none" 
-                      opacity={element.opacity}
-                      filter="url(#glow)"
-                    >
-                      <animate
-                        attributeName="stroke-dasharray"
-                        values="0,100; 50,50; 100,0"
-                        dur={`${element.speed + 1}s`}
-                        repeatCount="indefinite"
-                      />
-                    </path>
-                    
-                    {/* Ramificaciones */}
-                    <path 
-                      d={`M${element.x + 10},${element.y - 5} Q${element.x + 20},${element.y - 20} ${element.x + 35},${element.y - 15}`}
-                      stroke="#06d6a0" 
-                      strokeWidth="1" 
-                      fill="none" 
-                      opacity={element.opacity * 0.7}
-                    >
-                      <animate
-                        attributeName="stroke-dasharray"
-                        values="0,50; 25,25; 50,0"
-                        dur={`${element.speed + 1.5}s`}
-                        repeatCount="indefinite"
-                      />
-                    </path>
-                    
-                    <path 
-                      d={`M${element.x + 20},${element.y + 8} Q${element.x + 15},${element.y + 25} ${element.x + 30},${element.y + 30}`}
-                      stroke="#06d6a0" 
-                      strokeWidth="1" 
-                      fill="none" 
-                      opacity={element.opacity * 0.7}
-                    >
-                      <animate
-                        attributeName="stroke-dasharray"
-                        values="0,50; 25,25; 50,0"
-                        dur={`${element.speed + 2}s`}
-                        repeatCount="indefinite"
-                      />
-                    </path>
-                  </g>
+                  <div
+                    className="text-emerald-300"
+                    style={{
+                      fontSize: `${element.size}px`,
+                      opacity: element.opacity,
+                      filter: 'drop-shadow(0 0 4px rgba(6, 214, 160, 0.8))',
+                      animation: `float ${element.speed + 1}s ease-in-out infinite reverse`
+                    }}
+                  >
+                    ◈
+                  </div>
                 )}
-              </g>
+              </div>
             ))}
+          </div>
 
-            {/* Flujo de elementos entre las cámaras */}
-            <g className={`transition-all duration-1500 ${hourglassLoaded ? 'opacity-100' : 'opacity-0'}`}>
-              <circle cx="195" cy="240" r="2" fill="#fbbf24" opacity="0.8">
-                <animate attributeName="cy" values="180;320;320;180" dur="4s" repeatCount="indefinite"/>
-              </circle>
-              <circle cx="200" cy="250" r="1.5" fill="#06d6a0" opacity="0.8">
-                <animate attributeName="cy" values="190;330;330;190" dur="3.5s" repeatCount="indefinite"/>
-              </circle>
-              <circle cx="205" cy="235" r="2" fill="#c084fc" opacity="0.8">
-                <animate attributeName="cy" values="175;315;315;175" dur="4.5s" repeatCount="indefinite"/>
-              </circle>
-            </g>
-          </svg>
+          {/* Partículas adicionales que fluyen */}
+          <div className={`absolute inset-0 pointer-events-none transition-all duration-1500 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}>
+            <div 
+              className="absolute w-2 h-2 bg-yellow-300 rounded-full"
+              style={{
+                left: '20%',
+                top: '30%',
+                filter: 'drop-shadow(0 0 6px rgba(251, 191, 36, 0.8))',
+                animation: 'drift 6s ease-in-out infinite'
+              }}
+            />
+            <div 
+              className="absolute w-1.5 h-1.5 bg-emerald-300 rounded-full"
+              style={{
+                left: '70%',
+                top: '60%',
+                filter: 'drop-shadow(0 0 6px rgba(6, 214, 160, 0.8))',
+                animation: 'drift 4s ease-in-out infinite reverse'
+              }}
+            />
+            <div 
+              className="absolute w-2 h-2 bg-purple-300 rounded-full"
+              style={{
+                left: '50%',
+                top: '20%',
+                filter: 'drop-shadow(0 0 6px rgba(196, 132, 252, 0.8))',
+                animation: 'drift 5s ease-in-out infinite'
+              }}
+            />
+          </div>
         </div>
 
         {/* Texto principal */}
@@ -201,47 +150,20 @@ const Cuatro = () => {
         >
           <div className="bg-black/40 backdrop-blur-sm rounded-2xl p-8 border border-purple-300/20 shadow-xl shadow-purple-500/10">
             <p className="text-lg md:text-xl text-purple-50 leading-relaxed mb-6 font-light">
-Dentro de mí habita una mirada que se adelanta al tiempo, como si mis pensamientos caminaran siempre 
-    algunos pasos por delante del presente. Ese lado futurista me impulsa a imaginar escenarios donde la 
-    tecnología, la creatividad y lo desconocido se transforman en posibilidades tangibles.  
+              Esta última escena une todas las partes de mi autorretrato. El puente de cristal es mi trayecto personal: frágil, incierto, pero también iluminado por la claridad que surge cuando me detengo a reflexionar. A un lado, los fragmentos de espejo recuerdan que sigo explorando mis múltiples rostros, probando formas de ser que me ayudan a entenderme mejor. Al otro, el portal representa la imaginación que me acompaña desde niño, ese refugio secreto que siempre me ofrece alternativas y nuevas posibilidades.
             </p>
             <p className="text-lg md:text-xl text-purple-100 leading-relaxed italic">
-             Me reconozco en el símbolo del infinito y en las formas geométricas que parecen surgir de otros mundos, 
-    porque ambas me recuerdan que no estoy hecho para repetir lo establecido, sino para soñar con lo que aún 
-    no existe y abrirle un espacio real en mi camino.
+              Al fondo, la ciudad futurista refleja mi inclinación por lo que aún no existe, la fascinación que me impulsa a seguir avanzando. Mi figura pequeña frente a la inmensidad simboliza humildad, pero la luz que llevo en el pecho señala que no camino perdido, sino con un sentido interno que me guía. Esta es la suma de todo: soy búsqueda, imaginación y proyección hacia adelante, un caminante del futuro que sigue descubriéndose en el presente.
             </p>
           </div>
         </div>
-
+          
         {/* Navegación */}
         <div 
           className={`mt-12 flex space-x-6 transition-all duration-1000 delay-1200 ${
             isVisible ? 'opacity-100' : 'opacity-0'
           }`}
         >
-          <button 
-            onClick={() => window.location.href = '/tres'}
-            className="group bg-purple-600/20 hover:bg-purple-500/30 border border-purple-400/30 hover:border-purple-300/50 backdrop-blur-sm rounded-full px-6 py-3 transition-all duration-300 hover:scale-105"
-          >
-            <div className="flex items-center space-x-2 text-purple-200 group-hover:text-purple-100">
-              <svg className="w-4 h-4 group-hover:-rotate-90 transition-transform duration-300" fill="currentColor" viewBox="0 0 12 12">
-                <path d="M7.5 9l-3-3 3-3" stroke="currentColor" strokeWidth="1.5" fill="none"/>
-              </svg>
-              <span>Anterior</span>
-            </div>
-          </button>
-          
-          <button 
-            onClick={() => window.location.href = '/cinco'}
-            className="group bg-purple-600/20 hover:bg-purple-500/30 border border-purple-400/30 hover:border-purple-300/50 backdrop-blur-sm rounded-full px-6 py-3 transition-all duration-300 hover:scale-105"
-          >
-            <div className="flex items-center space-x-2 text-purple-200 group-hover:text-purple-100">
-              <span>Siguiente</span>
-              <svg className="w-4 h-4 group-hover:rotate-90 transition-transform duration-300" fill="currentColor" viewBox="0 0 12 12">
-                <path d="M4.5 3l3 3-3 3" stroke="currentColor" strokeWidth="1.5" fill="none"/>
-              </svg>
-            </div>
-          </button>
         </div>
       </div>
 
@@ -250,6 +172,17 @@ Dentro de mí habita una mirada que se adelanta al tiempo, como si mis pensamien
         @keyframes twinkle {
           0%, 100% { opacity: 0.3; transform: scale(1); }
           50% { opacity: 1; transform: scale(1.2); }
+        }
+        
+        @keyframes float {
+          0%, 100% { transform: translateY(0px) rotate(0deg); }
+          50% { transform: translateY(-10px) rotate(180deg); }
+        }
+        
+        @keyframes drift {
+          0%, 100% { transform: translate(0px, 0px); opacity: 0.6; }
+          33% { transform: translate(30px, -20px); opacity: 1; }
+          66% { transform: translate(-20px, 30px); opacity: 0.8; }
         }
       `}</style>
     </div>

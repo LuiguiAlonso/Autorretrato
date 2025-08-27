@@ -156,17 +156,10 @@ const Uno = () => {
         >
           <div className="bg-black/40 backdrop-blur-sm rounded-2xl p-8 border border-blue-300/20 shadow-xl shadow-blue-500/10">
             <p className="text-lg md:text-xl text-blue-50 leading-relaxed mb-6 font-light">
-              Esta imagen refleja la búsqueda de mi identidad. El espejo roto simboliza las distintas versiones de mí que voy probando, 
-              cada fragmento una posibilidad de lo que soy o podría ser. No es un espejo destruido, sino multiplicado: muestra que no 
-              soy uno solo, sino un conjunto de matices.
+              Esta imagen refleja que aún no termino de conocerme del todo. El camino dividido simboliza las distintas posibilidades de lo que puedo llegar a ser, las rutas que exploro para descubrir con cuál me identifico más. La luz en el pecho representa la esencia que siempre me acompaña, incluso cuando no tengo todas las respuestas.
             </p>
-            <p className="text-lg md:text-xl text-blue-100 leading-relaxed mb-6 italic">
-              Los hilos de luz que conectan los pedazos representan la esencia que permanece a pesar de los cambios, la base que me 
-              mantiene coherente en medio de la exploración.
-            </p>
-            <p className="text-lg md:text-xl text-blue-50 leading-relaxed italic">
-              Esa tensión entre lo diverso y lo unido es el centro de mi autorretrato en esta etapa: me conozco y no me conozco, 
-              soy fragmento y a la vez totalidad.
+            <p className="text-lg md:text-xl text-blue-100 leading-relaxed italic">
+              El cielo estrellado y las constelaciones me recuerdan que la búsqueda de identidad no es un error ni un vacío, sino un proceso natural, guiado por señales internas y externas. No soy un rompecabezas roto, sino un viajero que sigue explorando su propio mapa.
             </p>
           </div>
         </div>
